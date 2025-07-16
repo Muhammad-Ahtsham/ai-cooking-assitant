@@ -1,13 +1,26 @@
-🍳 Built an AI-Powered Cooking Voice Assistant in React.js!
+# 🍳 AI-Powered Cooking Voice Assistant
 
-Generate custom recipes with AI, get voice-guided cooking instructions
+An intelligent cooking assistant built with React.js that generates custom recipes using AI and provides **voice-guided** step-by-step cooking instructions — your personal chef in the browser!
 
-🛠️ Tech Stack:
-• React.js + Node.js + Mogodb
-• Tailwind CSS
-• Web Speech API for voice recognition
-• Speech Synthesis API for text-to-speech
-• Lucide React for beautiful icons
-• Modern component architecture
+---
 
-#ReactJS  #NodeJS #MongoDb #AI #VoiceUI #CookingTech #WebDevelopment
+## 🚀 Features
+
+- ✅ Generate AI-based custom recipes
+- 🎙️ Voice input using Web Speech API
+- 🔊 Text-to-speech cooking guidance
+- 💡 Smart and modern UI
+- 🔄 Seamless frontend-backend integration
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend**: React.js, Tailwind CSS, Lucide React
+- **Backend**: Node.js, Express.js
+- **Database**: MongoDB
+- **Voice UI**:
+  - Web Speech API (voice recognition)
+  - Speech Synthesis API (text-to-speech)
+
+---
