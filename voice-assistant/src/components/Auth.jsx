@@ -2,7 +2,7 @@ import { Navigate } from "react-router-dom";
 import { useGetMyprofileQuery } from "../../reduxApi/user";
 
 const ProtectRoutes = ({ children }) => {
-  const { data, error, isLoading } = useGetMyprofileQuery();
+  const { error, isLoading } = useGetMyprofileQuery();
 
   if (isLoading) return <div>Loading</div>;
   if (error) {

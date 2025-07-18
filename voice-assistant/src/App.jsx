@@ -3,10 +3,11 @@ import "./App.css";
 import ProtectRoutes from "./components/Auth";
 import Home from "./pages/Home";
 import Login from "./pages/login";
-import { Signup } from "./pages/singup";
+import { Signup } from "./pages/Signup";
 import Library from "./pages/Library";
 import CookingDetails from "./pages/CookingDetails";
 import { Toaster } from "react-hot-toast";
+import IsUser from "./components/IsUser";
 
 function App() {
   return (
@@ -40,8 +41,22 @@ function App() {
           }
         />
         <Route path="/recipe/:id" element={<CookingDetails />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/singup" element={<Signup />} />
+        <Route
+          path="/login"
+          element={
+            <IsUser>
+              <Login />
+            </IsUser>
+          }
+        />
+        <Route
+          path="/singup"
+          element={
+            <IsUser>
+              <Signup />
+            </IsUser>
+          }
+        />
       </Routes>
     </Router>
   );

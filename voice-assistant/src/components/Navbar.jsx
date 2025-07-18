@@ -1,18 +1,32 @@
-import { ChefHat, History, Home, Library } from "lucide-react";
+import { ChefHat, History, Home, Library, LogOutIcon } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useGetHistoryQuery } from "../../reduxApi/history";
 import Historylist from "../components/Historylist";
+import { useLogoutMutation } from "../../reduxApi/user";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   const { data } = useGetHistoryQuery();
+  const [logout] = useLogoutMutation ();
   const navigate = useNavigate();
   const location = useLocation();
+  const handleLogout = async () => {
+    try {
+       const result = await logout().unwrap();
+    if (result.message === "Logout successful") {
+      navigate("/", {
+        replace: true,
+      });
+    }
+    } catch (error) {
+     toast.error("Logout failed. Please try again."); 
+    }  
+  };
   const handleNavigate = () => {
     navigate("/library", {
       replace: true,
     });
   };
-  console.log(location.pathname);
   return (
     <header className=" flex items-center h-[5rem] w-full bg-white/95  p-3.5 backdrop-blur-md shadow-sm border-b border-gray-100 sticky top-0 z-50">
       <div className="mx-auto px-4 py-4 w-full">
@@ -51,6 +65,18 @@ const Navbar = () => {
                 }}
               />
             </button>
+            <button
+              className={`w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition-colors ${
+                location.pathname === "/" ? "hidden" : ""
+              }`}
+            >
+              <LogOutIcon
+                size={18}
+                className="text-gray-600"
+                onClick={handleLogout}
+              />
+            </button>
+
             <Historylist
               title="Chat History"
               width="w-full md:max-w-lg"

@@ -14,25 +14,32 @@ export const userApi = createApi({
         url: "/login",
         method: "POST",
         body: { email, password },
-        invalidatesTags:["User"]
+        invalidatesTags: ["User"],
       }),
     }),
-    singup: build.mutation({
+    signup: build.mutation({
       query: ({ name, email, password }) => ({
         url: "/register",
         method: "POST",
         body: { name, email, password },
       }),
     }),
+    logout: build.mutation({
+      query: () => ({
+        url: "/logout",
+        method: "GET",
+        invalidatesTags: ["User"],
+      }),
+    }),
     getMyprofile: build.query({
       query: () => ({
         url: "/getuser",
         method: "GET",
-        providesTags:["User"]
+        providesTags: ["User"],
       }),
     }),
   }),
 });
 
-export const { useLoginMutation, useSingupMutation, useGetMyprofileQuery } =
+export const { useLoginMutation, useSignupMutation, useGetMyprofileQuery, useLogoutMutation } =
   userApi;
