@@ -6,10 +6,14 @@ import Login from "./pages/login";
 import { Signup } from "./pages/singup";
 import Library from "./pages/Library";
 import CookingDetails from "./pages/CookingDetails";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <Router>
+      <Toaster
+        toastOptions={{ duration: 2000, style: { fontSize: "0.8rem" } }}
+      />
       <Routes>
         <Route
           path="/"

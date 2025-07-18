@@ -21,6 +21,15 @@ exports.addTolibrary = async (req, res) => {
         message: "item id is required",
       });
     }
+    const existingLibraryItem = await Library.findOne({
+      itemId,
+      userId: req.user.userId,
+    });
+    if (existingLibraryItem) {
+      return res.status(400).json({
+        message: "item already exists in library",
+      });
+    }
     await Library.create({
       itemId,
       userId: req.user.userId,

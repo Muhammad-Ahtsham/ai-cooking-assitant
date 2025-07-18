@@ -5,7 +5,7 @@ import {
   useContentGeneratorMutation,
   useCreateMessageMutation,
   useGetMessageQuery,
-} from "../../api/message";
+} from "../../reduxApi/message";
 import { useVoiceRecognition } from "../hooks/VoiceRecognizer";
 
 export const Input = () => {
@@ -18,7 +18,7 @@ export const Input = () => {
 
   const [createMessage] = useCreateMessageMutation();
   const { data: messagesData } = useGetMessageQuery();
-  const [generateContent] = useContentGeneratorMutation();
+  const [generateContent, { isLoading }] = useContentGeneratorMutation();
 
   const { historyId } = useParams();
 
@@ -61,6 +61,12 @@ export const Input = () => {
 
   return (
     <div className="h-[10rem] w-full flex flex-col justify-center items-center px-4 gap-5">
+       {isLoading && (
+        <div className="text-sm text-gray-500 flex items-center">
+          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-orange-400 mr-2"></div>
+          Generating response...
+        </div>
+      )}
       <div className="input-field min-w-[20rem] flex justify-center gap-3">
         {!isListening ? (
           <input

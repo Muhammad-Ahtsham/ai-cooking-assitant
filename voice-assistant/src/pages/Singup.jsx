@@ -1,17 +1,25 @@
 import { useState } from "react";
-import { useSingupMutation } from "../../api/user";
+import { useSingupMutation } from "../../reduxApi/user";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
   const [Singup, { data, error }] = useSingupMutation();
- 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      await Singup({ name, email, password });
+      const result = await Singup({ name, email, password }).unwrap();
+      if (result.user) {
+        toast.success("Signup successful");
+        navigate("/", { replace: true });
+      }
     } catch (err) {
       console.log(err.message || "Signup failed");
     }

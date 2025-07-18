@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import { useGetMyprofileQuery } from "../../api/user";
+import { useGetMyprofileQuery } from "../../reduxApi/user";
 
 const ProtectRoutes = ({ children }) => {
   const { data, error, isLoading } = useGetMyprofileQuery();

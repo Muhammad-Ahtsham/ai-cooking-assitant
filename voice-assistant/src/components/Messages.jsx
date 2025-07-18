@@ -1,9 +1,10 @@
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useGetMessageQuery } from "../../api/message";
+import { useGetMessageQuery } from "../../reduxApi/message";
 import { PrettyResponse } from "./PrettyResponse";
 import { ChefHat, Play, User } from "lucide-react";
-import { useAddtoLibraryMutation } from "../../api/library";
+import { useAddtoLibraryMutation } from "../../reduxApi/library";
+import toast from "react-hot-toast";
 
 export const Messages = ({ historyId }) => {
   const navigate = useNavigate();
@@ -12,8 +13,7 @@ export const Messages = ({ historyId }) => {
   const { data, isLoading, isError, error } = useGetMessageQuery(historyId, {
     skip: !historyId || !isValidObjectId(historyId),
   });
-  const [addtoLibrary, { data: result, isLoading: isloadingSave }] =
-    useAddtoLibraryMutation();
+  const [addtoLibrary] = useAddtoLibraryMutation();
 
   useEffect(() => {
     if (error && error.status === 400) {
@@ -26,10 +26,13 @@ export const Messages = ({ historyId }) => {
 
   const handlecontentSave = async (itemId) => {
     try {
-        await addtoLibrary(itemId).unwrap();
-      
+      const result = await addtoLibrary(itemId).unwrap();
+      console.log(result);
+      if (result.message === "library item created successfully") {
+        toast.success("Content saved to library!");
+      }
     } catch (error) {
-      console.log(error);
+      toast.error(error.data?.message);
     }
   };
 

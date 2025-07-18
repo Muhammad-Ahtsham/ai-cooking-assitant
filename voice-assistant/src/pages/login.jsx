@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useLoginMutation } from "../../api/user";
+import { useLoginMutation } from "../../reduxApi/user";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -14,9 +15,12 @@ const Login = () => {
     e.preventDefault();
     try {
       const result = await Login({ email, password }).unwrap();
-      navigate("/", { replace: true });
+      if (result.message === "Login successful") {
+          toast.success(result.message);
+        navigate("/", { replace: true });
+      }
     } catch (err) {
-      console.error("Login failed:", err);
+     toast.error(err.data?.message);
     }
   };
 
